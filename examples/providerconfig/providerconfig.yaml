@@ -1,4 +1,4 @@
-apiVersion: template.upbound.io/v1beta1
+apiVersion: aws.kubedb.com/v1beta1
 kind: ProviderConfig
 metadata:
   name: default
@@ -6,6 +6,22 @@ spec:
   credentials:
     source: Secret
     secretRef:
-      name: example-creds
+      key: crossplane-creds
+      name: aws-credential
       namespace: crossplane-system
-      key: credentials
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aws-credential
+  namespace: crossplane-system
+type: Opaque
+stringData:
+  crossplane-creds: |
+    {
+      "access_key": "?",
+      "secret_key": "?"
+    }
+
