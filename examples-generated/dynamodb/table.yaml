@@ -1,4 +1,4 @@
-apiVersion: dynamodb.kubedb.com/v1alpha1
+apiVersion: dynamodb.aws.kubedb.com/v1alpha1
 kind: Table
 metadata:
   annotations:

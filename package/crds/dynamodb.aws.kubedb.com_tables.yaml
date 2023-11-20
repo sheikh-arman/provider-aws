@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: tables.dynamodb.kubedb.com
+  name: tables.dynamodb.aws.kubedb.com
 spec:
-  group: dynamodb.kubedb.com
+  group: dynamodb.aws.kubedb.com
   names:
     categories:
     - crossplane
