@@ -8,6 +8,27 @@ import (
 	"strings"
 )
 
+var (
+	resourceGroup = map[string]string{
+		"aws_vpc": "ec2",
+	}
+
+	resourceKind = map[string]string{
+
+		"aws_vpc": "VPC",
+	}
+)
+
+func groupKindOverride(r *config.Resource) {
+	if _, ok := resourceGroup[r.Name]; ok {
+		r.ShortGroup = resourceGroup[r.Name]
+	}
+
+	if _, ok := resourceKind[r.Name]; ok {
+		r.Kind = resourceKind[r.Name]
+	}
+}
+
 // RegionAddition adds region to the spec of all resources except iam group which
 // does not have a region notion.
 func RegionAddition() config.ResourceOption {

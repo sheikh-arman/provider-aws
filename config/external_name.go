@@ -13,6 +13,11 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"aws_dynamodb_table": config.NameAsIdentifier,
 }
 
+var NoForkExternalNameConfigs = map[string]config.ExternalName{
+	// Imported using the id: vpc-23123
+	"aws_vpc": config.IdentifierFromProvider,
+}
+
 // ExternalNameConfigurations applies all external name configs listed in the
 // table ExternalNameConfigs and sets the version of those resources to v1beta1
 // assuming they will be tested.
@@ -31,6 +36,20 @@ func ExternalNameConfigured() []string {
 	i := 0
 	for name := range ExternalNameConfigs {
 		// $ is added to match the exact string since the format is regex.
+		l[i] = name + "$"
+		i++
+	}
+	return l
+}
+
+// NoForkResourceList returns the list of resources that have external
+// name configured in ExternalNameConfigs table and to be reconciled under
+// the no-fork architecture.
+func NoForkResourceList() []string {
+	l := make([]string, len(NoForkExternalNameConfigs))
+	i := 0
+	for name := range NoForkExternalNameConfigs {
+		// Expected format is regex and we'd like to have exact matches.
 		l[i] = name + "$"
 		i++
 	}

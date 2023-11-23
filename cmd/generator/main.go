@@ -5,7 +5,9 @@ Copyright 2021 Upbound Inc.
 package main
 
 import (
+	"context"
 	"fmt"
+	"gopkg.in/alecthomas/kingpin.v2"
 	"os"
 	"path/filepath"
 
@@ -23,5 +25,7 @@ func main() {
 	if err != nil {
 		panic(fmt.Sprintf("cannot calculate the absolute path with %s", rootDir))
 	}
-	pipeline.Run(config.GetProvider(), absRootDir)
+	p, err := config.GetProvider(context.Background(), true)
+	kingpin.FatalIfError(err, "Cannot initialize the provider configuration")
+	pipeline.Run(p, absRootDir)
 }
