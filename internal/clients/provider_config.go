@@ -31,6 +31,7 @@ import (
 const (
 	// DefaultSection for INI files.
 	DefaultSection = "DEFAULT"
+	//ff=ini.DefaultSection
 
 	// authentication types
 	errRoleChainConfig = "failed to load assumed role AWS config"

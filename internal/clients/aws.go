@@ -71,7 +71,7 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string, mta 
 
 		awsConfig, err := configureNoForkAWSClient(ctx, client, mg, pc, &ps)
 		if err != nil {
-			return terraform.Setup{}, errors.Wrap(err, "could not configure no-fork AWS client")
+			return ps, errors.Wrap(err, "could not configure no-fork AWS client")
 		}
 		p := mta.Meta()
 		tfClient, diag := awsConfig.GetClient(ctx, &xpprovider.AWSClient{
@@ -79,7 +79,7 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string, mta 
 			ServicePackages: (*xpprovider.AWSClient)(unsafe.Pointer(reflect.ValueOf(p).Pointer())).ServicePackages,
 		})
 		if diag != nil && diag.HasError() {
-			return terraform.Setup{}, errors.Errorf("failed to configure the AWS client: %v", diag)
+			return ps, errors.Errorf("failed to configure the AWS client: %v", diag)
 		}
 		ps.Meta = tfClient
 		return ps, nil
@@ -111,6 +111,11 @@ func pushDownTerraformSetupBuilder(ctx context.Context, client client.Client, mg
 }
 
 func configureNoForkAWSClient(ctx context.Context, c client.Client, mg resource.Managed, pc *v1beta1.ProviderConfig, ps *terraform.Setup) (xpprovider.AWSConfig, error) { //nolint:gocyclo
+
+	if len(pc.Spec.AssumeRoleChain) > 1 || pc.Spec.Endpoint != nil {
+		return xpprovider.AWSConfig{}, errors.New("cannot configure no-fork client because the length of assume role chain array " +
+			"is more than 1 or endpoint configuration is not nil")
+	}
 
 	cfg, err := getAWSConfig(ctx, c, mg)
 	if err != nil {
