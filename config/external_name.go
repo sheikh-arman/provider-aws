@@ -15,7 +15,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 
 var NoForkExternalNameConfigs = map[string]config.ExternalName{
 	// Imported using the id: vpc-23123
-	"aws_vpc": config.IdentifierFromProvider,
+	//"aws_vpc": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

@@ -13,6 +13,7 @@ require (
 	github.com/crossplane/crossplane-tools v0.0.0-20230925130601-628280f8bf79
 	github.com/crossplane/upjet v1.0.0
 	github.com/go-ini/ini v1.67.0
+	github.com/hashicorp/aws-sdk-go-base/v2 v2.0.0-beta.25
 	github.com/hashicorp/terraform-json v0.16.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.26.1
 	github.com/hashicorp/terraform-provider-aws v0.0.0-00010101000000-000000000000
@@ -107,7 +108,6 @@ require (
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/hashicorp/aws-cloudformation-resource-schema-sdk-go v0.20.0 // indirect
-	github.com/hashicorp/aws-sdk-go-base/v2 v2.0.0-beta.25 // indirect
 	github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2 v2.0.0-beta.26 // indirect
 	github.com/hashicorp/awspolicyequivalence v1.6.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
