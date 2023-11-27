@@ -10,7 +10,7 @@ spec:
   forProvider:
     region: us-east-2
     engine: postgres
-    engineVersion: "13.7"
+    engineVersion: "15.4"
     username: adminuser
     #autoGeneratePassword: true
     passwordSecretRef:
