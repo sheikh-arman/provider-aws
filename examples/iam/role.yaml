@@ -15,7 +15,7 @@ spec:
           {
             "Effect": "Allow",
             "Principal": {
-              "Service": "eks.amazonaws.com"
+              "Service": "rds.amazonaws.com"
             },
             "Action": "sts:AssumeRole"
           }
@@ -28,9 +28,22 @@ spec:
             "Version": "2012-10-17",
             "Statement": [
               {
-                "Effect": "Allow",
-                "Resource": "*",
-                "Action": "ec2:Describe*"
+                  "Sid": "VisualEditor0",
+                  "Effect": "Allow",
+                  "Action": [
+                      "secretsmanager:GetRandomPassword",
+                      "secretsmanager:CreateSecret",
+                      "secretsmanager:ListSecrets"
+                  ],
+                  "Resource": "*"
+              },
+              {
+                  "Sid": "VisualEditor1",
+                  "Effect": "Allow",
+                  "Action": "secretsmanager:*",
+                  "Resource": [
+                        "your_secret_ARN"
+                  ]
               }
             ]
           }

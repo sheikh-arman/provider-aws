@@ -23,10 +23,7 @@ spec:
       Key: value
       Name: example
     vpcSubnetIds:
-      # - subnet-0546de20b40a2c0c1
-      # - subnet-030de9d358df790ad
-      # - subnet-09c2fc96a4cd866a7
-      - example-subnet1
-      - example-subnet2
-      - example-subnet3
+      - subnet-0546de20b40a2c0c1
+      - subnet-030de9d358df790ad
+      - subnet-09c2fc96a4cd866a7
 ---
