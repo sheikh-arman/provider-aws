@@ -28,7 +28,7 @@ spec:
     maintenanceWindow: "Mon:00:00-Mon:03:00"
     publiclyAccessible: false
     skipFinalSnapshot: true
-    storageEncrypted: false
+    storageEncrypted: true
     autoMinorVersionUpgrade: true
   writeConnectionSecretToRef:
     name: example-dbinstance-out
