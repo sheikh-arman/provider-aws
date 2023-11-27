@@ -6,22 +6,9 @@ spec:
   credentials:
     source: Secret
     secretRef:
-      key: crossplane-creds
-      name: aws-credential
+      name: example-creds
       namespace: crossplane-system
+      key: credentials
 
 ---
-
-apiVersion: v1
-kind: Secret
-metadata:
-  name: aws-credential
-  namespace: crossplane-system
-type: Opaque
-stringData:
-  crossplane-creds: |
-    {
-      "access_key": "?",
-      "secret_key": "?"
-    }
 
