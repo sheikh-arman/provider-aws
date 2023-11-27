@@ -5,34 +5,31 @@ metadata:
     meta.kubedb.com/example-id: rds/v1alpha1/instance
   labels:
     testing.kubedb.com/example-name: example-dbinstance
-  name: example-dbinstance-1
+  name: example
 spec:
   forProvider:
-    dbSubnetGroupName: example-subnetgroup
     region: us-east-2
-    allocatedStorage: 20
-    autoMinorVersionUpgrade: true
-    backupRetentionPeriod: 14
-    instanceClass: db.t3.micro
-    name: example
     engine: mariadb
     engineVersion: "10.6.14"
     username: adminuser
-    autoGeneratePassword: true
+    #autoGeneratePassword: true
     passwordSecretRef:
       key: password
       name: example-dbinstance
-      namespace: upbound-system
+      namespace: crossplane-system
+    instanceClass: db.t3.micro
+    storageType: gp2
+    allocatedStorage: 20
+    dbSubnetGroupName: example
+    kmsKeyIdRef:
+      name: sample-key
+    backupRetentionPeriod: 0
     backupWindow: "09:46-10:16"
     maintenanceWindow: "Mon:00:00-Mon:03:00"
     publiclyAccessible: false
     skipFinalSnapshot: true
     storageEncrypted: true
-    storageType: gp2
-#    multiAz: true
-    kmsKeyIdSelector:
-      matchLabels:
-        testing.kubedb.com/example-name: sample-key
+    autoMinorVersionUpgrade: true
   writeConnectionSecretToRef:
     name: example-dbinstance-out
     namespace: default
@@ -46,7 +43,7 @@ metadata:
     meta.kubedb.com/example-id: rds/v1alpha1/instance
   labels:
     testing.kubedb.com/example-name: sample-key
-  name: sample-key-1
+  name: sample-key
 spec:
   forProvider:
     region: us-east-2
@@ -58,7 +55,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: example-dbinstance
-  namespace: upbound-system
+  namespace: crossplane-system
 type: Opaque
 data:
   password: MTIzNDU2Nzg=
@@ -70,7 +67,7 @@ data:
 apiVersion: ec2.aws.kubedb.com/v1alpha1
 kind: VPC
 metadata:
-  name: sample-db-vpc
+  name: example
 spec:
   forProvider:
     region: us-east-2
@@ -83,13 +80,13 @@ spec:
 apiVersion: ec2.aws.kubedb.com/v1alpha1
 kind: Subnet
 metadata:
-  name: sample-db-subnet1
+  name: example-subnet1
 spec:
   forProvider:
     region: us-east-2
     availabilityZone: us-east-2b
     vpcIdRef:
-      name: sample-db-vpc
+      name: example
     cidrBlock: 172.16.10.0/24
 
 ---
@@ -97,13 +94,13 @@ spec:
 apiVersion: ec2.aws.kubedb.com/v1alpha1
 kind: Subnet
 metadata:
-  name: sample-db-subnet2
+  name: example-subnet2
 spec:
   forProvider:
     region: us-east-2
     availabilityZone: us-east-2c
     vpcIdRef:
-      name: sample-db-vpc
+      name: example
     cidrBlock: 172.16.20.0/24
 
 ---
@@ -111,13 +108,13 @@ spec:
 apiVersion: ec2.aws.kubedb.com/v1alpha1
 kind: Subnet
 metadata:
-  name: sample-db-subnet3
+  name: example-subnet3
 spec:
   forProvider:
     region: us-east-2
     availabilityZone: us-east-2a
     vpcIdRef:
-      name: sample-db-vpc
+      name: example
     cidrBlock: 172.16.30.0/24
 
 ---
@@ -125,13 +122,13 @@ spec:
 apiVersion: rds.aws.kubedb.com/v1alpha1
 kind: SubnetGroup
 metadata:
-  name: example-subnetgroup
+  name: example
 spec:
   forProvider:
     region: us-east-2
     subnetIdRefs:
-      - name: sample-db-subnet1
-      - name: sample-db-subnet2
-      - name: sample-db-subnet3
+      - name: example-subnet1
+      - name: example-subnet2
+      - name: example-subnet3
     tags:
       Name: My DB subnet group
