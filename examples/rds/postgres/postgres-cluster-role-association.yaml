@@ -1,33 +1,19 @@
 apiVersion: rds.aws.kubedb.com/v1alpha1
-kind: Proxy
+kind: ClusterRoleAssociation
 metadata:
-  name: example
   annotations:
-    upjet.kubedb.com/manual-intervention: "This resource has a secret reference."
+    upjet.kubedb.com/manual-intervention: This resource has a reference to Cluster, which needs manual intervention.
+  name: example
 spec:
   forProvider:
+    dbClusterIdentifierRef:
+      name: example
+    featureName: s3Import
     region: us-east-2
-    auth:
-      - authScheme: SECRETS
-        description: example
-        iamAuth: DISABLED
-        secretArnRef:
-          name: example
-    debugLogging: false
-    engineFamily: POSTGRESQL
-    idleClientTimeout: 1800
-    requireTls: true
     roleArnRef:
       name: role
-    tags:
-      Key: value
-      Name: example
-    vpcSubnetIds:
-      - subnet-0546de20b40a2c0c1
-      - subnet-030de9d358df790ad
-      - subnet-09c2fc96a4cd866a7
----
 
+---
 apiVersion: iam.aws.kubedb.com/v1alpha1
 kind: Role
 metadata:
@@ -78,18 +64,3 @@ spec:
             ]
           }
 ---
-
-apiVersion: secretsmanager.aws.kubedb.com/v1alpha1
-kind: Secret
-metadata:
-  annotations:
-    meta.upbound.io/example-id: secretsmanager/v1alpha1/secretrotation
-  labels:
-    testing.upbound.io/example-name: example
-  name: example
-spec:
-  forProvider:
-    name: example
-    region: us-east-2
----
-  
