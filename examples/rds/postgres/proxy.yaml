@@ -11,16 +11,22 @@ spec:
       - authScheme: SECRETS
         description: example
         iamAuth: DISABLED
-        secretArn: arn:aws:secretsmanager:us-east-2:your-iam-id:secret:rds-proxy-arm-yNkcwm
+        secretArnRef:
+          name: example
     debugLogging: false
     engineFamily: POSTGRESQL
     idleClientTimeout: 1800
     requireTls: true
-    roleArn: arn:aws:iam::your-iam-id:role/rds-proxy-role-arm
+    roleArnRef:
+      name: role
     tags:
       Key: value
       Name: example
     vpcSubnetIds:
-      - subnet-0546de20b40a2c0c1
-      - subnet-030de9d358df790ad
-      - subnet-09c2fc96a4cd866a7
+      # - subnet-0546de20b40a2c0c1
+      # - subnet-030de9d358df790ad
+      # - subnet-09c2fc96a4cd866a7
+      - example-subnet1
+      - example-subnet2
+      - example-subnet3
+---
