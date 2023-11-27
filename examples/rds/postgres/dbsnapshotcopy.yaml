@@ -26,5 +26,6 @@ metadata:
   name: example
 spec:
   forProvider:
-    dbInstanceIdentifier: example-dbinstance-1
+    dbInstanceIdentifier: example
     region: us-east-2
+---
