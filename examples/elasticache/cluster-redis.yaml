@@ -96,15 +96,14 @@ spec:
 apiVersion: rds.aws.kubedb.com/v1alpha1
 kind: SubnetGroup
 metadata:
+  annotations:
+    meta.upbound.io/example-id: elasticache/v1aplha1/cluster
+  labels:
+    testing.upbound.io/example-name: example
   name: example
 spec:
   forProvider:
     region: us-east-2
     subnetIdRefs:
-      - name: example-subnet1
-      - name: example-subnet2
-      - name: example-subnet3
-    tags:
-      Name: My DB subnet group
-
+      - name: example
 ---
