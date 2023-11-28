@@ -1,4 +1,20 @@
 apiVersion: docdb.aws.kubedb.com/v1alpha1
+kind: ClusterInstance
+metadata:
+  annotations:
+    meta.kubedb.com/example-id: docdb/v1alpha1/clusterinstance
+  labels:
+    testing.kubedb.com/example-name: example
+  name: example
+spec:
+  forProvider:
+    clusterIdentifierRef:
+      name: example
+    instanceClass: db.t3.medium
+    region: us-east-2
+---
+
+apiVersion: docdb.aws.kubedb.com/v1alpha1
 kind: Cluster
 metadata:
   annotations:

@@ -8,6 +8,6 @@ spec:
   forProvider:
     region: us-east-2
     engine: docdb
-    engineVersion: 4.0.0
+    engineVersion: 5.0.0
     globalClusterIdentifier: global-test
 ---
