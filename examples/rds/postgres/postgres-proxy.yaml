@@ -77,8 +77,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: secretsmanager/v1alpha1/secretrotation
   labels:
-    testing.upbound.io/example-name: example
-  name: example
+    testing.upbound.io/example-name: example2
+  name: example2
 spec:
   forProvider:
     name: example
