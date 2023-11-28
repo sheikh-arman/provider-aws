@@ -12,7 +12,7 @@ spec:
         description: example
         iamAuth: DISABLED
         secretArnRef:
-          name: example
+          name: example2
     debugLogging: false
     engineFamily: POSTGRESQL
     idleClientTimeout: 1800
