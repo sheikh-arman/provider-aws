@@ -81,7 +81,7 @@ metadata:
   name: example2
 spec:
   forProvider:
-    name: example
+    name: example2
     region: us-east-2
 ---
   
