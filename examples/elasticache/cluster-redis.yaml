@@ -17,7 +17,7 @@ spec:
     #parameterGroupName: cache-params-test
     port: 6379
     securityGroupIdRefs:
-      name: example
+      - example
     subnetGroupNameRef:
       name: example
 
