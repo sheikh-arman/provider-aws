@@ -1,11 +1,11 @@
 apiVersion: rds.aws.kubedb.com/v1alpha1
-kind: ParameterGroup
+kind: ClusterParameterGroup
 metadata:
   annotations:
     meta.kubedb.com/example-id: rds/v1alpha1/parametergroup
   labels:
     testing.kubedb.com/example-name: example
-  name: example-parametergroup
+  name: example
 spec:
   forProvider:
     region: us-east-2
@@ -15,3 +15,4 @@ spec:
       - name: application_name
         value: "example"
         applyMethod: immediate
+---

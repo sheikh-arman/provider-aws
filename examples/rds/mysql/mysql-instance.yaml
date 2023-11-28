@@ -12,6 +12,7 @@ spec:
     engine: mysql
     engineVersion: "8.0.33"
     username: adminuser
+    dbName: dbexample
     #autoGeneratePassword: true
     passwordSecretRef:
       key: password
@@ -33,7 +34,6 @@ spec:
   writeConnectionSecretToRef:
     name: example-dbinstance-out
     namespace: default
-
 ---
 
 apiVersion: kms.aws.kubedb.com/v1alpha1

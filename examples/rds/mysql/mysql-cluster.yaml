@@ -1,66 +1,39 @@
 apiVersion: rds.aws.kubedb.com/v1alpha1
-kind: Instance
+kind: Cluster
 metadata:
-  annotations:
-    meta.kubedb.com/example-id: rds/v1alpha1/instance
-  labels:
-    testing.kubedb.com/example-name: example-dbinstance
   name: example
-spec:
-  forProvider:
-    region: us-east-2
-    engine: postgres
-    engineVersion: "15.4"
-    username: adminuser
-    dbName: dbexample
-    #autoGeneratePassword: true
-    passwordSecretRef:
-      key: password
-      name: example-dbinstance
-      namespace: crossplane-system
-    instanceClass: db.t3.micro
-    storageType: gp2
-    allocatedStorage: 20
-    dbSubnetGroupName: example
-    kmsKeyIdRef:
-      name: sample-key
-    backupRetentionPeriod: 0
-    backupWindow: "09:46-10:16"
-    maintenanceWindow: "Mon:00:00-Mon:03:00"
-    publiclyAccessible: false
-    skipFinalSnapshot: true
-    storageEncrypted: true
-    autoMinorVersionUpgrade: true
-  writeConnectionSecretToRef:
-    name: example-dbinstance-out
-    namespace: default
----
-
-apiVersion: kms.aws.kubedb.com/v1alpha1
-kind: Key
-metadata:
   annotations:
-    meta.kubedb.com/example-id: rds/v1alpha1/instance
-  labels:
-    testing.kubedb.com/example-name: sample-key
-  name: sample-key
+    meta.kubedb.com/example-id: rds/v1alpha1/cluster
 spec:
   forProvider:
+    dbSubnetGroupName: example
     region: us-east-2
-    description: Created with Crossplane
-    deletionWindowInDays: 7
+    engine: mysql
+    engineVersion: "8.0.33"
+    masterUsername: "cpadmin"
+    masterPasswordSecretRef:
+      name: example-password
+      namespace: crossplane-system
+      key: password
+    skipFinalSnapshot: true
+    dbClusterInstanceClass: db.m5d.large
+    storageType: io1
+    allocatedStorage: 100
+    iops: 1000
+  writeConnectionSecretToRef:
+    name: sample-rds-cluster-secret
+    namespace: crossplane-system
 
 ---
+
 apiVersion: v1
 kind: Secret
 metadata:
-  name: example-dbinstance
+  name: example-password
   namespace: crossplane-system
 type: Opaque
-data:
-  password: MTIzNDU2Nzg=
-  #12345678
-
+stringData:
+  password: TestPass0!
 
 ---
 

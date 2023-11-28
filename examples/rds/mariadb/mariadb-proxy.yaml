@@ -14,7 +14,7 @@ spec:
         secretArnRef:
           name: example
     debugLogging: false
-    engineFamily: POSTGRESQL
+    engineFamily: MYSQL
     idleClientTimeout: 1800
     requireTls: true
     roleArnRef:
@@ -66,6 +66,14 @@ spec:
                       "secretsmanager:ListSecrets"
                   ],
                   "Resource": "*"
+              },
+              {
+                  "Sid": "VisualEditor1",
+                  "Effect": "Allow",
+                  "Action": "secretsmanager:*",
+                  "Resource": [
+                        "your_secret_ARN"
+                  ]
               }
             ]
           }

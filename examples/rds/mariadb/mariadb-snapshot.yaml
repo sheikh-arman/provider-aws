@@ -8,6 +8,7 @@ spec:
   forProvider:
     region: us-east-2
     dbInstanceIdentifierRef:
-      name: example-dbinstance-1
+      name: example
 
 ---
+

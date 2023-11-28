@@ -9,4 +9,4 @@ spec:
     majorEngineVersion: "10.11"
     option:
       - optionName: TDE
-    optionGroupDescription: Crossplane Option Group
+    optionGroupDescription: Kubedb Option Group
