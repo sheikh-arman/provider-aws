@@ -11,7 +11,9 @@ spec:
     name: cache-params-test
     family: redis7
     parameter:
-    - name: activerehashing
-      value: "yes"
+      - name: activerehashing
+        value: yes
+      - name: min-slaves-to-write
+        value: "2"
     region: us-east-2
 ---
