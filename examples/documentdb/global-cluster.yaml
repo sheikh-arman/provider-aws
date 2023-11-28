@@ -2,7 +2,7 @@ apiVersion: docdb.aws.kubedb.com/v1alpha1
 kind: GlobalCluster
 metadata:
   labels:
-    testing.kubedb.com/example-name: global-docdb
+    testing.kubedb.com/example-name: example
   name: example
 spec:
   forProvider:
@@ -10,3 +10,4 @@ spec:
     engine: docdb
     engineVersion: 4.0.0
     globalClusterIdentifier: global-test
+---
