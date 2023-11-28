@@ -16,35 +16,15 @@ spec:
     parameterGroupName: default.redis7
     #parameterGroupName: cache-params-test
     port: 6379
-    securityGroupIdSelector:
-      matchLabels:
-        testing.kubedb.com/example-name: example
-    subnetGroupNameSelector:
-      matchLabels:
-        testing.kubedb.com/example-name: example
+    securityGroupIdRefs:
+      name: example
+    subnetGroupNameRef:
+      name: example
 
 ---
 
-
-# apiVersion: ec2.aws.kubedb.com/v1alpha1
-# kind: SecurityGroup
-# metadata:
-#   annotations:
-#     meta.kubedb.com/example-id: elasticache/v1alpha1/cluster
-#   labels:
-#     testing.kubedb.com/example-name: example
-#   name: example
-# spec:
-#   forProvider:
-#     region: us-east-2
-#     vpcIdSelector:
-#       matchLabels:
-#         testing.kubedb.com/example-name: example
-
----
-
-apiVersion: elasticache.aws.kubedb.com/v1alpha1
-kind: SubnetGroup
+apiVersion: ec2.aws.kubedb.com/v1alpha1
+kind: SecurityGroup
 metadata:
   annotations:
     meta.kubedb.com/example-id: elasticache/v1alpha1/cluster
@@ -54,39 +34,97 @@ metadata:
 spec:
   forProvider:
     region: us-east-2
-    subnetIdRefs:
-      - name: example
+    vpcIdSelector:
+      matchLabels:
+        testing.kubedb.com/example-name: example
+---
+
+apiVersion: ec2.aws.kubedb.com/v1alpha1
+kind: VPC
+metadata:
+  name: example
+spec:
+  forProvider:
+    region: us-east-2
+    cidrBlock: 172.16.0.0/16
+    tags:
+      Name: DemoVpc
 
 ---
 
-# apiVersion: ec2.aws.kubedb.com/v1alpha1
-# kind: Subnet
-# metadata:
-#   annotations:
-#     meta.kubedb.com/example-id: elasticache/v1alpha1/cluster
-#   labels:
-#     testing.kubedb.com/example-name: example
-#   name: example
-# spec:
-#   forProvider:
-#     availabilityZone: us-east-2b
-#     cidrBlock: 10.0.0.0/16
-#     region: us-east-2
-#     vpcIdSelector:
-#       matchLabels:
-#         testing.kubedb.com/example-name: example
+apiVersion: ec2.aws.kubedb.com/v1alpha1
+kind: Subnet
+metadata:
+  name: example-subnet1
+spec:
+  forProvider:
+    region: us-east-2
+    availabilityZone: us-east-2b
+    vpcIdRef:
+      name: example
+    cidrBlock: 172.16.10.0/24
 
-# ---
+---
 
-# apiVersion: ec2.aws.kubedb.com/v1alpha1
-# kind: VPC
-# metadata:
-#   annotations:
-#     meta.kubedb.com/example-id: elasticache/v1alpha1/cluster
-#   labels:
-#     testing.kubedb.com/example-name: example
-#   name: example
-# spec:
-#   forProvider:
-#     cidrBlock: 10.0.0.0/16
-#     region: us-east-2
+apiVersion: ec2.aws.kubedb.com/v1alpha1
+kind: Subnet
+metadata:
+  name: example-subnet2
+spec:
+  forProvider:
+    region: us-east-2
+    availabilityZone: us-east-2c
+    vpcIdRef:
+      name: example
+    cidrBlock: 172.16.20.0/24
+
+---
+
+apiVersion: ec2.aws.kubedb.com/v1alpha1
+kind: Subnet
+metadata:
+  name: example-subnet3
+spec:
+  forProvider:
+    region: us-east-2
+    availabilityZone: us-east-2a
+    vpcIdRef:
+      name: example
+    cidrBlock: 172.16.30.0/24
+
+---
+
+apiVersion: rds.aws.kubedb.com/v1alpha1
+kind: SubnetGroup
+metadata:
+  name: example
+spec:
+  forProvider:
+    region: us-east-2
+    subnetIdRefs:
+      - name: example-subnet1
+      - name: example-subnet2
+      - name: example-subnet3
+    tags:
+      Name: My DB subnet group
+
+---
+apiVersion: rds.aws.kubedb.com/v1alpha1
+kind: ParameterGroup
+metadata:
+  annotations:
+    meta.kubedb.com/example-id: rds/v1alpha1/parametergroup
+  labels:
+    testing.kubedb.com/example-name: example
+  name: example
+spec:
+  forProvider:
+    region: us-east-2
+    family: mariadb10.6
+    description: example
+    parameter:
+      - name: application_name
+        value: "example"
+        applyMethod: immediate
+    
+---
