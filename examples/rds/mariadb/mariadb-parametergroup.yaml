@@ -9,7 +9,7 @@ metadata:
 spec:
   forProvider:
     region: us-east-2
-    family: mariadb10.11
+    family: mariadb10.6
     description: example
     parameter:
       - name: application_name
