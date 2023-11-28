@@ -105,5 +105,7 @@ spec:
   forProvider:
     region: us-east-2
     subnetIdRefs:
-      - name: example
+      - name: example-subnet1
+      - name: example-subnet2
+      - name: example-subnet3
 ---
