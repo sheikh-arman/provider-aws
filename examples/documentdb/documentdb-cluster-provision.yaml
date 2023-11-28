@@ -13,7 +13,7 @@ spec:
     backupRetentionPeriod: 0
     masterPasswordSecretRef:
       key: password
-      name: docdb-creds
+      name: example-creds
       namespace: crossplane-system
     masterUsername: foo
     preferredBackupWindow: 07:00-09:00
@@ -33,8 +33,7 @@ metadata:
   namespace: crossplane-system
 type: Opaque
 stringData:
-  password: "Upboundtest!"
-
+  password: "Upboundtest!324225DD"
 
 ---
 
