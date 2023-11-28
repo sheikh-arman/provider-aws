@@ -16,5 +16,4 @@ spec:
         value: "example"
         applyMethod: immediate
     
-
 ---
