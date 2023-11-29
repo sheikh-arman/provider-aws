@@ -1,8 +1,8 @@
-apiVersion: elasticache.aws.upbound.io/v1beta1
+apiVersion: elasticache.aws.kubedb.com/v1alpha1
 kind: ReplicationGroup
 metadata:
   annotations:
-    uptest.upbound.io/timeout: "3600"
+    uptest.kubedb.com/timeout: "3600"
   name: example
 spec:
   forProvider:
